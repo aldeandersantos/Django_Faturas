@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Visualizar Faturas</h2>
+  <ul>
+    {% for compra in compras %}
+      <li>{{ compra.nome }} - R$ {{ compra.valor }} - {{ compra.parcelas }} parcelas</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

@@ -12,3 +12,4 @@ class Fatura(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     data = models.DateField()
     valor = models.DecimalField(max_digits=10, decimal_places=2)
+

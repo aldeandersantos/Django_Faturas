@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Meu Projeto Setup{% endblock %}</title>
+    <!-- Adicione aqui os seus links para folhas de estilo, scripts, etc. -->
+</head>
+<body>
+    <header>
+        <h1>{% block header %}Meu Projeto Setup{% endblock %}</h1>
+        <!-- Adicione aqui elementos de navegação, se necessário -->
+    </header>
+    
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    
+    <footer>
+        <p>&copy; {% now "Y" %} Meu Projeto Setup. Todos os direitos reservados.</p>
+        <!-- Adicione aqui outros elementos do rodapé, como links para redes sociais, etc. -->
+    </footer>
+</body>
+</html>
