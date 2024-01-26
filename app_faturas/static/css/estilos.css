@@ -1,0 +1,39 @@
+.pagina-inicial-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .subtitulo {
+    font-style: italic;
+    color: #555;
+  }
+  
+  .destaque {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .destaque img {
+    width: 100px;
+    margin-right: 20px;
+  }
+  
+  .funcionalidades {
+    margin-top: 40px;
+  }
+  
+  .funcionalidades h2 {
+    color: #333;
+  }
+  
+  .funcionalidades ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .funcionalidades li {
+    margin-bottom: 10px;
+  }
+  

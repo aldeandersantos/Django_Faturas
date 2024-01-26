@@ -3,6 +3,9 @@ from django.contrib.auth.decorators import login_required
 from .models import Compra, Fatura
 from .forms import CompraForm
 
+def pagina_inicial(request):
+    return render(request, 'app_faturas/index.html')
+
 @login_required
 def listar_compras(request):
     compras = Compra.objects.filter(usuario=request.user)

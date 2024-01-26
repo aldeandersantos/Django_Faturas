@@ -13,3 +13,9 @@ class Fatura(models.Model):
     data = models.DateField()
     valor = models.DecimalField(max_digits=10, decimal_places=2)
 
+class Cliente(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    # Outros campos para o cliente, como nome, endereço, etc.
+
+    def __str__(self):
+        return self.user.username

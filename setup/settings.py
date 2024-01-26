@@ -76,7 +76,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'setup.wsgi.application'
 
 ## LOGIN ##
-LOGIN_REDIRECT_URL = 'nome_da_sua_view'
+LOGIN_REDIRECT_URL = 'listar_faturas'  # Redirecionamento após o login
+LOGOUT_REDIRECT_URL = 'listar_faturas'  # Redirecionamento após o logout
 
 
 # Database
@@ -112,19 +113,20 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
+LANGUAGE_CODE = 'pt-br'
+TIME_ZONE = 'America/Sao_Paulo'
 USE_I18N = True
-
 USE_TZ = True
+DATE_FORMAT = 'd/m/Y'
+TIME_FORMAT = 'H:i'
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
