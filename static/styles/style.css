@@ -1,0 +1,80 @@
+/* Reset de margens e preenchimentos para garantir consistência entre os navegadores */
+body, h1, h2, p, ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Estilos básicos para o corpo da página */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #282a36;
+  color: #f8f8f2;
+}
+
+/* Estilos para o cabeçalho da página */
+header {
+  background-color: #44475a;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* Estilos para a área principal da página */
+main {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #282a36;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Estilos para as seções específicas da página */
+.destaque {
+  background-color: #44475a;
+  color: #f8f8f2;
+  padding: 10px;
+  border: 1px solid #6272a4;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.funcionalidades {
+  margin-top: 20px;
+}
+
+/* Estilos para a área do rodapé da página */
+footer {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #44475a;
+  color: #f8f8f2;
+  text-align: center;
+  height: 20px; /* Adjust the height as desired */
+}
+
+/* Estilos para a lista de funcionalidades */
+.funcionalidades h2 {
+  color: #6272a4;
+}
+
+.funcionalidades ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.funcionalidades li {
+  margin-bottom: 10px;
+}
+
+/* Estilos para links */
+a {
+  color: #bd93f9;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+

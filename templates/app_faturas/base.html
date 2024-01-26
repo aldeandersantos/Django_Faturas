@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Meu Projeto Setup{% endblock %}</title>
+    <!-- Adicione aqui os seus links para folhas de estilo, scripts, etc. -->
+    <link rel="stylesheet" href="{% static 'styles/style.css'%}">
+</head>
+<body>
+    <header>
+        {% if user.is_authenticated %}
+    <nav>
+        <ul>
+            <li><a href="#">Visualizar Faturas</a></li>
+            <li><a href="#">Inserir Compra</a></li>
+        </ul>
+    </nav>
+{% else %}
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Username">
+        <input type="password" name="password" placeholder="Password">
+        <button type="submit">Login</button>
+    </form>
+{% endif %}
+    </header>
+    
+    {% block content %} {% endblock %}
+    
+    <footer>
+        <footer>
+            <!--div class="footer-container">
+            </div-->
+            <p> &copy; 2024 Projeto em Django desenvolvido por Aldeander.</p>
+    </footer>
+</body>
+</html>
