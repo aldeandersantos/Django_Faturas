@@ -1,0 +1,10 @@
+{% extends 'app_faturas/base.html' %}
+
+{% block content %}
+  <h2>Logout</h2>
+  <form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+  </form>
+  <a href="{% url 'inicio' %}">Voltar para o início</a>
+{% endblock %}

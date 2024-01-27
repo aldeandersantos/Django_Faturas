@@ -1,18 +1,17 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.views import LoginView
-from django.contrib.auth import login as auth_login
-from .forms import CustomUserCreationForm  # Certifique-se de importar o formulário personalizado
+from django.shortcuts import redirect
+from django.contrib.auth.views import LoginView, LogoutView as DjangoLogoutView
+from django.http import HttpResponseNotAllowed
+from django.contrib.auth import login as logout
 
 class CustomLoginView(LoginView):
-    template_name = 'app_login/login.html'  # Especifique o template para a página de login
+    template_name = 'app_login/login.html'
 
-def cadastrar_cliente(request):
-    if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)  # Use o formulário personalizado para criação do usuário
-        if form.is_valid():
-            user = form.save()
-            auth_login(request, user)  # Faça o login automaticamente após o cadastro
-            return redirect('listar_faturas')  # Ou para a página desejada
-    else:
-        form = CustomUserCreationForm()  # Use o formulário personalizado para criação do usuário
-    return render(request, 'app_login/cadastrar_cliente.html', {'form': form})
+class CustomLogoutView(DjangoLogoutView):
+    template_name = 'app_login/logout.html'
+
+    def get(self, request, *args, **kwargs):
+        return HttpResponseNotAllowed(['POST'])
+
+def logout_view(request):
+    logout(request)
+    return redirect('pagina_inicial')

@@ -76,10 +76,11 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'setup.wsgi.application'
+APPEND_SLASH = False
 
 ## LOGIN ##
-LOGIN_REDIRECT_URL = 'listar_faturas'  # Redirecionamento após o login
-LOGOUT_REDIRECT_URL = 'listar_faturas'  # Redirecionamento após o logout
+LOGIN_REDIRECT_URL = 'pagina_inicial'  # Redirecionamento após o login
+LOGOUT_REDIRECT_URL = 'pagina_inicial'  # Redirecionamento após o logout
 
 
 # Database

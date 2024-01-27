@@ -78,3 +78,25 @@ a:hover {
   text-decoration: underline;
 }
 
+/* Resto dos estilos */
+h1, h2, p {
+  margin-bottom: 10px;
+}
+
+
+/* Estilos para o botão de logout */
+header .logout-button {
+  float: right;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #44475a;
+  color: #f8f8f2;
+  text-align: center;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease-in-out;
+}
+
+header .logout-button:hover {
+  background-color: #6272a4;
+}

@@ -10,28 +10,48 @@
     <link rel="stylesheet" href="{% static 'styles/style.css'%}">
 </head>
 <body>
+    {% if user.is_authenticated %}
     <header>
-        {% if user.is_authenticated %}
     <nav>
         <ul>
-            <li><a href="#">Visualizar Faturas</a></li>
-            <li><a href="#">Inserir Compra</a></li>
+            <li class="dropdown">
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'cadastrar_compra' %}">Cadastrar compra</a></li>
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button class="logout-button" type="submit">Sair</button>
+                    </form>
+                </ul>
+            </li>
         </ul>
     </nav>
-{% else %}
-    <form action="{% url 'login' %}" method="post">
-        {% csrf_token %}
-        <input type="text" name="username" placeholder="Username">
-        <input type="password" name="password" placeholder="Password">
-        <button type="submit">Login</button>
-    </form>
+    </header>
+    {% else %}
+    <header>
+        <nav>
+            <ul>
+                <li class="dropdown">
+                    {% block header_content %}
+                        <!-- Parte específica do link "Login" aqui -->
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="fas fa-bars"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'login' %}">Login</a></li>
+                        </ul>
+                    {% endblock %}
+                </li>
+            </ul>
+        </nav>
+    </header>
 {% endif %}
     </header>
     
-    {% block content %} {% endblock %}
+    <main>
+        {% block content %} {% endblock %}
+    </main>
     
     <footer>
-        <footer>
             <!--div class="footer-container">
             </div-->
             <p> &copy; 2024 Projeto em Django desenvolvido por Aldeander.</p>
