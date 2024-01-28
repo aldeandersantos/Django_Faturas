@@ -1,11 +1,17 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends 'app_faturas/base.html' %}
+
+{% block title %}Cadastrar Compra{% endblock %}
+
+{% block header_content %}
+   <a href="{% url 'cadastrar_compra' %}">Pagina Inicial</a>
+{% endblock %}
 
 {% block content %}
-  <h2>Cadastrar Compra</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Salvar</button>
-  </form>
+   <h1>Cadastrar Compra</h1>
+   <form method="post" action="">
+       {% csrf_token %}
+       {{ form.as_p }}
+       <button type="submit" name="add_another">Criar e adicionar outra compra</button>
+       <button type="submit" name="go_to_home">Criar compra e voltar para a página inicial</button>
+   </form>
 {% endblock %}

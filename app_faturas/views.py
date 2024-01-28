@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Fatura
+from .models import Fatura, Compra
 from .forms import CompraForm
 
 def pagina_inicial(request):
@@ -8,16 +8,20 @@ def pagina_inicial(request):
 
 @login_required
 def cadastrar_compra(request):
+    compras = Compra.objects.filter(usuario=request.user)
+    form = CompraForm(request.POST or None, initial={'usuario': request.user})
+
     if request.method == 'POST':
-        form = CompraForm(request.POST)
         if form.is_valid():
-            compra = form.save(commit=False)
-            compra.usuario = request.user
-            compra.save()
-            return redirect('visualizar_faturas')
-    else:
-        form = CompraForm()
-    return render(request, 'app_faturas/cadastrar_compra.html', {'form': form})
+            form.save()
+            if 'add_another' in request.POST:
+                # Redireciona para a página de cadastro novamente
+                return redirect('cadastrar_compra')
+            elif 'go_to_home' in request.POST:
+                # Redireciona para a página inicial
+                return redirect('pagina_inicial')
+
+    return render(request, 'app_faturas/cadastrar_compra.html', {'compras': compras, 'form': form})
 
 @login_required
 def visualizar_faturas(request):
