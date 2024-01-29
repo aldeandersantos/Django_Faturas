@@ -1,6 +1,8 @@
+from datetime import datetime
+from django.db.models import Sum
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Fatura, Compra
+from .models import Compra
 from .forms import CompraForm
 
 def pagina_inicial(request):
@@ -25,5 +27,13 @@ def cadastrar_compra(request):
 
 @login_required
 def visualizar_faturas(request):
-    faturas = Fatura.objects.filter(usuario=request.user)
-    return render(request, 'app_faturas/visualizar_faturas.html', {'faturas': faturas})
+    # Obtém o mês atual
+    mes_atual = datetime.now().month
+
+    # Filtra as compras do usuário logado no mês atual
+    compras = Compra.objects.filter(usuario=request.user, data__month=mes_atual)
+
+    # Calcula o total gasto no mês atual
+    total_gasto = compras.aggregate(Sum('valor'))['valor__sum']
+
+    return render(request, 'app_faturas/visualizar_faturas.html', {'compras': compras, 'total_gasto': total_gasto})

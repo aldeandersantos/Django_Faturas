@@ -2,6 +2,7 @@
 {% load static %}
 {% block content %}
   <h2>Visualizar Faturas</h2>
+  <p>Total gasto este mês: R$ {{ total_gasto|default:"0.00" }}</p>
   <ul>
     {% for compra in compras %}
       <li>{{ compra.nome }} - R$ {{ compra.valor }} - {{ compra.parcelas }} parcelas</li>
