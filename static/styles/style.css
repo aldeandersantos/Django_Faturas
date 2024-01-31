@@ -11,14 +11,6 @@ body {
   color: #f8f8f2;
 }
 
-/* Estilos para o cabeçalho da página */
-header {
-  background-color: #44475a;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  transition: background-color 0.3s ease-in-out;
-}
 
 /* Estilos para a área principal da página */
 main {
@@ -84,19 +76,43 @@ h1, h2, p {
 }
 
 
-/* Estilos para o botão de logout */
-header .logout-button {
-  float: right;
-  margin-top: 20px;
+/* Estilos para o cabeçalho da página */
+header {
+  background-color: #44475a;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* Estilos para os botões no header */
+header .logout-button,
+header .custom-button {
   padding: 10px;
   background-color: #44475a;
   color: #f8f8f2;
-  text-align: center;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   transition: background-color 0.3s ease-in-out;
 }
 
-header .logout-button:hover {
+header .logout-button:hover,
+header .custom-button:hover {
   background-color: #6272a4;
+}
+
+header .custom-button {
+  flex-grow: 1; /* Ocupar o espaço disponível */
+  margin: 0 10px; /* Ajuste a margem conforme necessário */
+}
+
+header .custom-center-button {
+  text-align: center;
+}
+
+header .custom-left-button {
+  text-align: left;
 }

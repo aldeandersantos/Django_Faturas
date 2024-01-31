@@ -12,19 +12,26 @@
 <body>
     {% if user.is_authenticated %}
     <header>
-    <nav>
-        <ul>
-            <li class="dropdown">
-                <ul class="dropdown-menu">
-                    <li><a href="{% url 'cadastrar_compra' %}">Cadastrar compra</a></li>
-                    <form method="post" action="{% url 'logout' %}">
-                        {% csrf_token %}
-                        <button class="logout-button" type="submit">Sair</button>
-                    </form>
-                </ul>
-            </li>
-        </ul>
-    </nav>
+        <nav>
+            <ul>
+                <li class="dropdown">
+                    <ul class="dropdown-menu">
+                        <li>
+                            <button class="custom-button custom-left-button" onclick="window.location.href='{% url 'cadastrar_compra' %}'">Criar Compra</button>
+                        </li>
+                        <li>
+                            <form method="post" action="{% url 'logout' %}">
+                                {% csrf_token %}
+                                <button class="logout-button" type="submit">Sair</button>
+                            </form>
+                        </li>
+                        <li>
+                            <button class="custom-button custom-center-button" onclick="window.location.href='{% url 'visualizar_faturas' %}'">Ver Faturas</button>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
     </header>
     {% else %}
     <header>
