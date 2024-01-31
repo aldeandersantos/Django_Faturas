@@ -7,9 +7,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('app_faturas.urls')),
+    path('', include('app_login.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('login/', include('app_login.urls')),
-    path('logout/', include('app_login.urls')), 
     path('', RedirectView.as_view(url='inicio/', permanent=False)),  # Redirecionamento para a página inicial
 ]
 

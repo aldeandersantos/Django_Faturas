@@ -79,6 +79,7 @@ WSGI_APPLICATION = 'setup.wsgi.application'
 APPEND_SLASH = False
 
 ## LOGIN ##
+LOGIN_TEMPLATE = 'app_login/login.html'
 LOGIN_REDIRECT_URL = 'pagina_inicial'  # Redirecionamento após o login
 LOGOUT_REDIRECT_URL = 'pagina_inicial'  # Redirecionamento após o logout
 
@@ -127,3 +128,5 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
