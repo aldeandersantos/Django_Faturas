@@ -1,0 +1,1 @@
+# Este arquivo é necessário para o Django reconhecer a pasta como um pacote

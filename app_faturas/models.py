@@ -9,6 +9,9 @@ class Compra(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     data = models.DateField(default=timezone.now)
 
+    ano = models.IntegerField(default=timezone.now().year)
+    mes = models.IntegerField(default=timezone.now().month)
+
     def __str__(self):
         return f'{self.usuario.username}  |  {self.nome}'
     

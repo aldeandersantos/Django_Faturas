@@ -1,7 +1,32 @@
 {% extends 'app_faturas/base.html' %}
 {% load static %}
+{% load custom_filters %}
+
 {% block content %}
-  <h2>Visualizar Faturas</h2>
+  <!-- Adiciona botões para alternar entre meses e anos -->
+  <form method="GET" action="{% url 'visualizar_faturas' %}">
+      <label for="select_mes">Selecione o Mês:</label>
+      <select name="mes" id="select_mes">
+          {% for m in meses %}
+              <option value="{{ m.numero }}" {% if m.numero == mes %}selected{% endif %}>{{ m.nome }}</option>
+          {% endfor %}
+      </select>
+
+      <label for="select_ano">Selecione o Ano:</label>
+      <select name="ano" id="select_ano">
+          {% for a in anos %}
+              <option value="{{ a.year }}" {% if a.year == ano %}selected{% endif %}>{{ a.year }}</option>
+          {% endfor %}
+      </select>
+
+      <input type="submit" value="Atualizar">
+  </form>
+
+  <a href="{% url 'visualizar_faturas' ano=ano_anterior mes=mes_anterior %}">Mês Anterior</a>
+
+  <a href="{% url 'visualizar_faturas' ano=ano_posterior mes=mes_posterior %}">Próximo Mês</a>
+
+  <h2>Visualizar Faturas - {{ meses|get_by_number:mes }}/{{ ano }}</h2>
   <p>Total gasto este mês: R$ {{ total_gasto|default:"0.00" }}</p>
   <ul>
     {% for compra in compras %}

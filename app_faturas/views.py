@@ -26,14 +26,46 @@ def cadastrar_compra(request):
     return render(request, 'app_faturas/cadastrar_compra.html', {'compras': compras, 'form': form})
 
 @login_required
-def visualizar_faturas(request):
-    # Obtém o mês atual
-    mes_atual = datetime.now().month
+def visualizar_faturas(request, ano=None, mes=None):
+    # Obtendo a lista de anos com base nas compras existentes
+    anos = Compra.objects.filter(usuario=request.user).dates('data', 'year', order='DESC')
+    
+    # Obtendo a lista de meses
+    meses = [
+        {'numero': 1, 'nome': 'Janeiro'},
+        {'numero': 2, 'nome': 'Fevereiro'},
+        {'numero': 3, 'nome': 'Março'},
+        {'numero': 4, 'nome': 'Abril'},
+        {'numero': 5, 'nome': 'Maio'},
+        {'numero': 6, 'nome': 'Junho'},
+        {'numero': 7, 'nome': 'Julho'},
+        {'numero': 8, 'nome': 'Agosto'},
+        {'numero': 9, 'nome': 'Setembro'},
+        {'numero': 10, 'nome': 'Outubro'},
+        {'numero': 11, 'nome': 'Novembro'},
+        {'numero': 12, 'nome': 'Dezembro'},
+    ]
 
-    # Filtra as compras do usuário logado no mês atual
-    compras = Compra.objects.filter(usuario=request.user, data__month=mes_atual)
+    if not ano or not mes:
+        # Se ano ou mês não forem fornecidos, assume o ano e mês atuais
+        ano = datetime.now().year
+        mes = datetime.now().month
 
-    # Calcula o total gasto no mês atual
+    # Convertendo ano e mes para inteiros
+    ano = int(ano)
+    mes = int(mes)
+
+    # Filtra as compras do usuário logado no ano e mês fornecidos
+    compras = Compra.objects.filter(usuario=request.user, data__year=ano, data__month=mes)
+
+    # Calcula o total gasto no ano e mês fornecidos
     total_gasto = compras.aggregate(Sum('valor'))['valor__sum']
 
-    return render(request, 'app_faturas/visualizar_faturas.html', {'compras': compras, 'total_gasto': total_gasto})
+    return render(request, 'app_faturas/visualizar_faturas.html', {
+        'compras': compras,
+        'total_gasto': total_gasto,
+        'ano': ano,
+        'mes': mes,
+        'anos': anos,
+        'meses': meses,
+    })
