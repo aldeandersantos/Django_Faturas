@@ -1,4 +1,5 @@
 from datetime import datetime
+import logging
 from django.db.models import Sum
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -27,10 +28,10 @@ def cadastrar_compra(request):
 
 @login_required
 def visualizar_faturas(request, ano=None, mes=None):
-    # Obtendo a lista de anos com base nas compras existentes
+    # Lógica para obter a lista de anos com base nas compras existentes
     anos = Compra.objects.filter(usuario=request.user).dates('data', 'year', order='DESC')
-    
-    # Obtendo a lista de meses
+
+    # Lógica para obter a lista de meses
     meses = [
         {'numero': 1, 'nome': 'Janeiro'},
         {'numero': 2, 'nome': 'Fevereiro'},
@@ -46,26 +47,39 @@ def visualizar_faturas(request, ano=None, mes=None):
         {'numero': 12, 'nome': 'Dezembro'},
     ]
 
-    if not ano or not mes:
-        # Se ano ou mês não forem fornecidos, assume o ano e mês atuais
-        ano = datetime.now().year
-        mes = datetime.now().month
+    if request.method == 'POST':
+        selected_ano = int(request.POST.get('ano', datetime.now().year))
+        selected_mes = int(request.POST.get('mes', datetime.now().month))
+    else:
+        selected_ano = ano if ano else datetime.now().year
+        selected_mes = mes if mes else datetime.now().month
 
-    # Convertendo ano e mes para inteiros
-    ano = int(ano)
-    mes = int(mes)
+        
+        # Adicionando logs
+    logging.debug(f"Antes da consulta - Ano: {ano}, Mês: {mes}")
+    # Lógica para obter as compras do usuário no mês e ano especificados
+    compras = Compra.objects.filter(usuario=request.user, ano=selected_ano, mes=selected_mes)
+    logging.debug(f"Depois da consulta - Compras: {compras}")
 
-    # Filtra as compras do usuário logado no ano e mês fornecidos
-    compras = Compra.objects.filter(usuario=request.user, data__year=ano, data__month=mes)
-
-    # Calcula o total gasto no ano e mês fornecidos
+    # Lógica para calcular o total gasto no mês atual
     total_gasto = compras.aggregate(Sum('valor'))['valor__sum']
+    print(f"selected_mes na view: {selected_mes}")
 
+    logging.basicConfig(level=logging.DEBUG) 
+    
+    for compra in compras:
+        logging.debug(f"Compra: {compra.nome}, Valor: {compra.valor}, Parcelas: {compra.parcelas}, Data: {compra.data}, Mês: {compra.data.month}")
+    logging.debug(f"selected_mes na view: {selected_mes}")
+
+
+    # Renderizando a página
     return render(request, 'app_faturas/visualizar_faturas.html', {
         'compras': compras,
         'total_gasto': total_gasto,
         'ano': ano,
         'mes': mes,
+        'selected_mes': selected_mes,
+        'selected_ano': selected_ano,
         'anos': anos,
         'meses': meses,
     })

@@ -4,33 +4,43 @@
 
 {% block content %}
   <!-- Adiciona botões para alternar entre meses e anos -->
-  <form method="GET" action="{% url 'visualizar_faturas' %}">
-      <label for="select_mes">Selecione o Mês:</label>
-      <select name="mes" id="select_mes">
-          {% for m in meses %}
-              <option value="{{ m.numero }}" {% if m.numero == mes %}selected{% endif %}>{{ m.nome }}</option>
-          {% endfor %}
-      </select>
+  <form method="POST" action="{% url 'visualizar_faturas' %}">
+    {% csrf_token %}
+    <label for="select_mes">Selecione o Mês:</label>
+    <select name="mes" id="select_mes">
+      {% for m in meses %}
+          <option value="{{ m.numero|add:0 }}" {% if m.numero == selected_mes %}selected="selected"{% endif %}>
+              {{ m.nome }}
+          </option>
+      {% endfor %}
+    </select>
+    <label for="select_ano">Selecione o Ano:</label>
+    <select name="ano" id="select_ano">
+        {% for a in anos %}
+            <option value="{{ a.year }}" {% if a.year == selected_ano %}selected{% endif %}>{{ a.year }}</option>
+        {% endfor %}
+    </select>
 
-      <label for="select_ano">Selecione o Ano:</label>
-      <select name="ano" id="select_ano">
-          {% for a in anos %}
-              <option value="{{ a.year }}" {% if a.year == ano %}selected{% endif %}>{{ a.year }}</option>
-          {% endfor %}
-      </select>
+    <input type="submit" value="Atualizar">
+</form>
 
-      <input type="submit" value="Atualizar">
-  </form>
+<h2>Visualizar Faturas - {{ selected_mes }}/{{ selected_ano }}</h2>
+<p>Total gasto este mês: R$ {{ total_gasto|default:"0.00" }}</p>
 
-  <a href="{% url 'visualizar_faturas' ano=ano_anterior mes=mes_anterior %}">Mês Anterior</a>
-
-  <a href="{% url 'visualizar_faturas' ano=ano_posterior mes=mes_posterior %}">Próximo Mês</a>
-
-  <h2>Visualizar Faturas - {{ meses|get_by_number:mes }}/{{ ano }}</h2>
-  <p>Total gasto este mês: R$ {{ total_gasto|default:"0.00" }}</p>
-  <ul>
+<ul>
     {% for compra in compras %}
-      <li>{{ compra.nome }} - R$ {{ compra.valor }} - {{ compra.parcelas }} parcelas</li>
+        <li>
+            {{ compra.nome }} - R$ {{ compra.valor }} - {{ compra.parcelas }} parcelas
+            {% if selected_mes|add:0 == compra.mes|add:0|stringformat:"d" %}
+                (Selecionado)
+            {% endif %}
+        </li>
+    {% empty %}
+        <li>
+            Nenhuma compra feita neste mês
+        </li>
     {% endfor %}
-  </ul>
+</ul>
+
+
 {% endblock %}

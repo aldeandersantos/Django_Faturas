@@ -9,11 +9,11 @@ class Compra(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     data = models.DateField(default=timezone.now)
 
-    ano = models.IntegerField(default=timezone.now().year)
-    mes = models.IntegerField(default=timezone.now().month)
+    ano = models.IntegerField(default=timezone.now().year, editable=False)
+    mes = models.IntegerField(default=timezone.now().month, editable=False)
 
     def __str__(self):
-        return f'{self.usuario.username}  |  {self.nome}'
+        return f'{self.usuario.username} | {self.nome}'
     
 class Cliente(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
