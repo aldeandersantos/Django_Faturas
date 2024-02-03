@@ -4,7 +4,7 @@
 
 {% block content %}
   <!-- Adiciona botões para alternar entre meses e anos -->
-  <form method="POST" action="{% url 'visualizar_faturas' %}">
+  <form  method="POST" action="{% url 'visualizar_faturas' %}">
     {% csrf_token %}
     <label for="select_mes">Selecione o Mês:</label>
     <select name="mes" id="select_mes">
@@ -21,7 +21,7 @@
         {% endfor %}
     </select>
 
-    <input type="submit" value="Atualizar">
+    <input class="custom-button" type="submit" value="Atualizar">
 </form>
 
 <h2>Visualizar Faturas - {{ selected_mes }}/{{ selected_ano }}</h2>

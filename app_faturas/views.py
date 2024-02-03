@@ -54,24 +54,12 @@ def visualizar_faturas(request, ano=None, mes=None):
         selected_ano = ano if ano else datetime.now().year
         selected_mes = mes if mes else datetime.now().month
 
-        
-        # Adicionando logs
-    logging.debug(f"Antes da consulta - Ano: {ano}, Mês: {mes}")
     # Lógica para obter as compras do usuário no mês e ano especificados
     compras = Compra.objects.filter(usuario=request.user, ano=selected_ano, mes=selected_mes)
-    logging.debug(f"Depois da consulta - Compras: {compras}")
 
     # Lógica para calcular o total gasto no mês atual
     total_gasto = compras.aggregate(Sum('valor'))['valor__sum']
-    print(f"selected_mes na view: {selected_mes}")
-
-    logging.basicConfig(level=logging.DEBUG) 
     
-    for compra in compras:
-        logging.debug(f"Compra: {compra.nome}, Valor: {compra.valor}, Parcelas: {compra.parcelas}, Data: {compra.data}, Mês: {compra.data.month}")
-    logging.debug(f"selected_mes na view: {selected_mes}")
-
-
     # Renderizando a página
     return render(request, 'app_faturas/visualizar_faturas.html', {
         'compras': compras,
