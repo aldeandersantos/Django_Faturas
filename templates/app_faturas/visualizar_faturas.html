@@ -32,7 +32,6 @@
         <li>
             {{ compra.nome }} - R$ {{ compra.valor }} - {{ compra.parcelas }} parcelas
             {% if selected_mes|add:0 == compra.mes|add:0|stringformat:"d" %}
-                (Selecionado)
             {% endif %}
         </li>
     {% empty %}
