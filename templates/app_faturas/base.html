@@ -13,46 +13,29 @@
 <body>
     {% if user.is_authenticated %}
     <header>
-        <nav>
-            <ul>
-                <li class="dropdown">
-                    <ul class="dropdown-menu">
-                        <li>
-                            <button class="custom-button custom-left-button" onclick="window.location.href='{% url 'cadastrar_compra' %}'">Criar Compra</button>
-                        </li>
-                        <li>
-                            <form method="post" action="{% url 'logout' %}">
-                                {% csrf_token %}
-                                <button class="logout-button" type="submit">Sair</button>
-                            </form>
-                        </li>
-                        <li>
-                            <button class="custom-button custom-center-button" onclick="window.location.href='{% url 'visualizar_faturas' %}'">Ver Faturas</button>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-    </header>
+        <div class="custom-left-button">
+          <button class="custom-button" onclick="window.location.href='{% url 'cadastrar_compra' %}'">Criar Compra</button>
+        </div>
+        
+        <div class="custom-center-button">
+          <button class="custom-button" onclick="window.location.href='{% url 'visualizar_faturas' %}'">Ver Faturas</button>
+        </div>
+      
+        <div class="custom-right-button">
+          <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button class="logout-button" type="submit">Sair</button>
+          </form>
+        </div>
+      </header>           
     {% else %}
     <header>
-        <nav>
-            <ul>
-                <li class="dropdown">
-                    {% block header_content %}
-                        <!-- Parte específica do link "Login" aqui -->
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <span class="fas fa-bars"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{% url 'login' %}">Login</a></li>
-                        </ul>
-                    {% endblock %}
-                </li>
-            </ul>
-        </nav>
+        <!-- Mostra o botão de Login apenas se o usuário não estiver autenticado -->
+        <div class="custom-left-button">
+            <a class="custom-button" href="{% url 'login' %}">Login</a>
+        </div>
     </header>
-{% endif %}
+    {% endif %}
     </header>
     
     <main>

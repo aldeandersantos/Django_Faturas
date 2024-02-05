@@ -11,7 +11,6 @@ body {
   color: #f8f8f2;
 }
 
-
 /* Estilos para a área principal da página */
 main {
   max-width: 800px;
@@ -43,7 +42,7 @@ footer {
   background-color: #44475a;
   color: #f8f8f2;
   text-align: center;
-  height: 20px; /* Adjust the height as desired */
+  height: 20px; /* Ajuste a altura conforme necessário */
 }
 
 /* Estilos para a lista de funcionalidades */
@@ -70,12 +69,6 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Resto dos estilos */
-h1, h2, p {
-  margin-bottom: 10px;
-}
-
-
 /* Estilos para o cabeçalho da página */
 header {
   background-color: #44475a;
@@ -86,33 +79,37 @@ header {
   justify-content: space-between;
   align-items: center;
   transition: background-color 0.3s ease-in-out;
+  flex-direction: row; /* Garante que os elementos dentro do header estejam em linha */
 }
 
 /* Estilos para os botões no header */
 header .logout-button,
 header .custom-button {
   padding: 10px;
-  background-color: #44475a;
+  background-color: #6272a4; /* Cor de destaque para todos os botões */
   color: #f8f8f2;
+  border: none;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
   transition: background-color 0.3s ease-in-out;
 }
 
 header .logout-button:hover,
 header .custom-button:hover {
-  background-color: #6272a4;
+  background-color: #44475a; /* Cor de destaque ao passar o mouse */
 }
 
-header .custom-button {
-  flex-grow: 1; /* Ocupar o espaço disponível */
-  margin: 0 10px; /* Ajuste a margem conforme necessário */
-}
-
+header .custom-left-button,
+header .custom-right-button,
 header .custom-center-button {
-  text-align: center;
+  flex-grow: 1; /* Ocupar o espaço disponível */
+  text-align: center; /* Centralizar o texto dentro do botão */
 }
 
 header .custom-left-button {
   text-align: left;
+}
+
+header .custom-right-button {
+  text-align: right;
 }
