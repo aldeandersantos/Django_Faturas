@@ -7,10 +7,10 @@ class Compra(models.Model):
     valor = models.DecimalField(max_digits=10, decimal_places=2)
     parcelas = models.IntegerField(default=1)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
-    data = models.DateField(default=timezone.now)
+    data = models.DateField(default=timezone.now, editable=True)
 
-    ano = models.IntegerField(default=timezone.now().year, editable=False)
-    mes = models.IntegerField(default=timezone.now().month, editable=False)
+    ano = models.IntegerField(default=timezone.now().year, editable=True)
+    mes = models.IntegerField(default=timezone.now().month, editable=True)
 
     def __str__(self):
         return f'{self.usuario.username} | {self.nome}'
