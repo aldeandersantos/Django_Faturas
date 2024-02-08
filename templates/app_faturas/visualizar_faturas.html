@@ -30,7 +30,7 @@
 <ul>
     {% for compra in compras %}
         <li>
-            {{ compra.nome }} - R$ {{ compra.valor }} - {{ compra.parcelas }} parcelas
+            {{ compra.nome }} - R$ {{ compra.valor }}
             {% if selected_mes|add:0 == compra.mes|add:0|stringformat:"d" %}
             {% endif %}
         </li>

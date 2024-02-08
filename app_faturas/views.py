@@ -32,7 +32,7 @@ def visualizar_faturas(request, ano=None, mes=None):
     meses = service.nomeMeses()
     selected_mes, selected_ano = service.definirData(request)
 
-    # Lógica para obter as compras do usuário no mês e ano especificados
+    # Lógica para obter todas as compras do usuário
     compras = Compra.objects.filter(usuario=request.user, ano=selected_ano, mes=selected_mes)
 
     # Lógica para calcular o total gasto no mês atual

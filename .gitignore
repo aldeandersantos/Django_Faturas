@@ -10,6 +10,8 @@ setup/config.py
 *.pyc
 __pycache__/
 migrations/
+app_login/migrations
+app_faturas/migrations/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
