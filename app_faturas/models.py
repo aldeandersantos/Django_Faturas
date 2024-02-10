@@ -7,7 +7,8 @@ from django.dispatch import receiver
 class Compra(models.Model):
     nome = models.CharField(max_length=255)
     valor = models.DecimalField(max_digits=10, decimal_places=2)
-    parcelas = models.IntegerField(default=1)
+    parcelas = models.IntegerField(default=1, editable=False)
+    servico_recorrente = models.BooleanField(default=False, editable=False)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     data = models.DateField(default=timezone.now, editable=True)
     mes = models.IntegerField(default=timezone.now().month, editable=True)

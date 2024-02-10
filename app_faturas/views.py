@@ -27,7 +27,7 @@ def cadastrar_compra(request):
 
 @login_required
 def visualizar_faturas(request, ano=None, mes=None):
-    # Lógica para obter a lista de anos com base nas compras existentes
+    # Lógica para obter a lista de anos e meses do service.py
     anos = Compra.objects.filter(usuario=request.user).dates('data', 'year', order='DESC')
     meses = service.nomeMeses()
     selected_mes, selected_ano = service.definirData(request)
