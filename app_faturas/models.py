@@ -7,8 +7,8 @@ from django.dispatch import receiver
 class Compra(models.Model):
     nome = models.CharField(max_length=255)
     valor = models.DecimalField(max_digits=10, decimal_places=2)
-    parcelas = models.IntegerField(default=1, editable=False)
-    servico_recorrente = models.BooleanField(default=False, editable=False)
+    parcelas = models.IntegerField(default=1, editable=True)
+    servico_recorrente = models.BooleanField(default=False, editable=True)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     data = models.DateField(default=timezone.now, editable=True)
     mes = models.IntegerField(default=timezone.now().month, editable=True)
@@ -33,6 +33,22 @@ def criar_parcelas(sender, instance, **kwargs):
                 ano=instance.ano
             )
             nova_compra.save()
+        instance.delete()
+    
+@receiver(post_save, sender=Compra)
+def recorrencia(sender, instance, **kwargs):
+    if instance.servico_recorrente == True:
+        nova_compra = Compra(
+            nome=instance.nome,
+            valor=instance.valor,
+            parcelas=1,
+            usuario=instance.usuario,
+            data=instance.data,
+            mes=12,
+            ano=2021,
+            servico_recorrente=True
+        )
+        nova_compra.save()
         instance.delete()
     
 class Cliente(models.Model):

@@ -28,6 +28,13 @@
 <p>Total gasto este mês: R$ {{ total_gasto|default:"0.00" }}</p>
 
 <ul>
+    {% for compra in compras_recorrentes %}
+        <li>
+            {{ compra.nome }} - R$ {{ compra.valor }}
+            {% if selected_mes|add:0 == compra.mes|add:0|stringformat:"d" %}
+            {% endif %}
+        </li>
+    {% endfor %}
     {% for compra in compras %}
         <li>
             {{ compra.nome }} - R$ {{ compra.valor }}
