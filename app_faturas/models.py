@@ -37,7 +37,7 @@ def criar_parcelas(sender, instance, **kwargs):
     
 @receiver(post_save, sender=Compra)
 def recorrencia(sender, instance, **kwargs):
-    if instance.servico_recorrente == True:
+    if instance.servico_recorrente == True and instance.ano != 2021:
         nova_compra = Compra(
             nome=instance.nome,
             valor=instance.valor,
