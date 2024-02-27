@@ -40,8 +40,8 @@ def visualizar_faturas(request, ano=None, mes=None):
     selected_mes, selected_ano = service.definirData(request)
 
     # Lógica para obter todas as compras do usuário
-    compras_recorrentes = Compra.objects.filter(usuario=request.user, servico_recorrente=True)
     compras = Compra.objects.filter(usuario=request.user, ano=selected_ano, mes=selected_mes)
+    compras = compras | Compra.objects.filter(usuario=request.user, servico_recorrente=True)
 
    ## compras = compras + Compra.objects.filter(usuario=request.user, servico_recorrente=True)
 
@@ -50,7 +50,6 @@ def visualizar_faturas(request, ano=None, mes=None):
     
     # Renderizando a página
     return render(request, 'app_faturas/visualizar_faturas.html', {
-        'compras_recorrentes': compras_recorrentes,
         'compras': compras,
         'total_gasto': total_gasto,
         'ano': ano,
