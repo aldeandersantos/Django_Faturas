@@ -7,6 +7,7 @@ from .views import (
 
 urlpatterns = [
     path('', pagina_inicial, name='pagina_inicial'),
+    path('admin/', pagina_inicial, name='admin'),
     path('cadastrar_compra/', cadastrar_compra, name='cadastrar_compra'),
     path('faturas/', visualizar_faturas, name='visualizar_faturas'),
 ]

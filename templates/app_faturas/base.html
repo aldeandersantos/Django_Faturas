@@ -25,6 +25,9 @@
           <form method="post" action="{% url 'logout' %}">
             {% csrf_token %}
             <button class="logout-button" type="submit">Sair</button>
+            {% if user.is_authenticated and user.is_staff %}
+            <button class="custom-button" onclick="window.location.href='{% url 'admin' %}'">Painel de Admin</button>
+            {% endif %}
           </form>
         </div>
       </header>           
@@ -45,7 +48,7 @@
     <footer>
             <!--div class="footer-container">
             </div-->
-            <p> &copy; 2024 Projeto em Django desenvolvido por Aldeander.</p>
+            <p> &copy; 2024 Projeto desenvolvido por Aldeander.</p>
     </footer>
 </body>
 </html>
