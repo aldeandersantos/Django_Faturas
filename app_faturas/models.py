@@ -18,6 +18,32 @@ class Compra(models.Model):
         return f'{self.usuario.username} | {self.nome}'
 
 @receiver(post_save, sender=Compra)
+def proxima_fatura(sender, instance, **kwargs):
+    if instance.data.day < 15:
+        if instance.mes == 12:  # Verifica se é o último mês
+            nova_compra = Compra(
+                nome=instance.nome,
+                valor=instance.valor,
+                parcelas=1,
+                usuario=instance.usuario,
+                data=instance.data,
+                mes = 1,
+                ano = instance.ano + 1 # Dezembro para Janeiro
+            )
+        else :
+            nova_compra = Compra(
+                nome=instance.nome,
+                valor=instance.valor,
+                parcelas=1, 
+                usuario=instance.usuario,
+                data=instance.data,
+                mes=instance.mes + 1,
+                ano=instance.ano
+            )
+        nova_compra.save()
+        instance.delete()
+        
+@receiver(post_save, sender=Compra)
 def criar_parcelas(sender, instance, **kwargs):
     if instance.parcelas > 1:
         valor_por_parcela = instance.valor / instance.parcelas
@@ -35,6 +61,7 @@ def criar_parcelas(sender, instance, **kwargs):
             nova_compra.save()
         instance.delete()
     
+        
 @receiver(post_save, sender=Compra)
 def recorrencia(sender, instance, **kwargs):
     if instance.servico_recorrente == True and instance.ano != 2021:
@@ -48,6 +75,7 @@ def recorrencia(sender, instance, **kwargs):
             ano=2021,
             servico_recorrente=True
         )
+        print (instance.data)
         nova_compra.save()
         instance.delete()
     
