@@ -9,6 +9,7 @@ setup/config.py
 *.pot
 *.pyc
 __pycache__/
+get-pip.py
 migrations/
 app_login/migrations
 app_faturas/migrations/
